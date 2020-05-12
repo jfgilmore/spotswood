@@ -1,5 +1,6 @@
 class Listing < ApplicationRecord
   belongs_to :user
+  has_many_attached :images
 
   validates :name, length: { in: 2...40 }
   validates :summary, length: { in: 22...120 }
