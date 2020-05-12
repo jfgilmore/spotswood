@@ -31,7 +31,6 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "rspec-rails", "~> 4.0"
   gem "capybara", "~> 3.32"
-  gem "factory_bot", "~> 5.2"
   gem "shoulda-matchers", "~> 4.3"
 end
 
@@ -48,3 +47,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "devise", "~> 4.7"
+
+gem "factory_bot_rails", "~> 5.2"
