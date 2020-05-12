@@ -1,6 +1,7 @@
 <%= link_to 'Home', root_path, class: 'btn' %>
 <% if current_user %>
-<%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn' %>
+  <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn' %>
+  <%= image_tag user_avatar(current_user, 30), class: 'rounded-circle' %>
 <% else %>
-<%= link_to 'Sign in', new_user_session_path, class: 'btn' %>
+  <%= link_to 'Sign in', new_user_session_path, class: 'btn' %>
 <% end %>
