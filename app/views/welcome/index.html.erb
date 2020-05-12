@@ -1,2 +1,4 @@
 <h1>Welcome to Spotswood</h1>
-<button class="sign_in">Sign in</button>
+<% if !current_user %>
+<%= link_to 'Sign up', new_user_registration_path, class: 'btn' %>
+<% end %>
