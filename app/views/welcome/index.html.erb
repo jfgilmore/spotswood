@@ -1,0 +1,10 @@
+<div class="titlearea">
+  <h1>Welcome to Spotswood
+  <% if current_user %>
+    <%= current_user.name %>
+  <% end %></h1>
+</div>
+
+<% if !current_user %>
+  <%= link_to 'Sign up', new_user_registration_path, class: 'btn' %>
+<% end %>
