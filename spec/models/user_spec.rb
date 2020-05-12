@@ -20,24 +20,51 @@ RSpec.describe User, type: :model do
       expect(subject).to_not be_valid
     end
 
-    it 'is not valid with a short name' do
-      subject.name = 'tt'
+    it 'is not valid with a name less than 2 characters' do
+      subject.name = 't'
       expect(subject).to_not be_valid
     end
 
-    it 'is valid with a name 5 characters in length' do
-      subject.name = 'ttttt'
-      expect(subject).to be_valid
-    end
-
     it 'is not valid with a name greater than 50 characters in length' do
-      subject.name = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwx'
+      subject.name = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
       expect(subject).to_not be_valid
     end
 
     it 'is not valid with an invalid email address' do
       subject.email = 'abc'
       expect(subject).to_not be_valid
+    end
+
+    it 'is not valid with no email address' do
+      subject.email = ''
+      expect(subject).to_not be_valid
+    end
+
+    context 'with a duplicate email' do
+      it 'is not valid' do
+        otheruser = described_class.create(name: 'Tiny Tim', email: 'tim@test.com', password: '111111', phone: 0400555555, role: :CommunityUser)
+        expect(subject).to_not be_valid
+      end
+    end
+
+    it 'is not valid with a non numeric phone number' do
+      subject.phone = 'avdsjjkl'
+      expect(subject).to_not be_valid
+    end
+
+    it 'is not valid with punctuation in the phone number' do
+      subject.phone = '(03)93555555'
+      expect(subject).to_not be_valid
+    end
+
+    it 'is not valid when code of conduct unaccepted' do
+      subject.coc = false
+      expect(subject).to_not be_valid
+    end
+
+    it 'is valid when code of conduct accepted' do
+      subject.coc = true
+      expect(subject).to be_valid
     end
   end
 
