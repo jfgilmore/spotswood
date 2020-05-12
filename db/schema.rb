@@ -37,12 +37,12 @@ ActiveRecord::Schema.define(version: 2020_05_12_104323) do
   end
 
   create_table "listings", force: :cascade do |t|
-    t.text "name", null: false
+    t.string "name", null: false
     t.datetime "time"
-    t.text "location"
-    t.text "why"
+    t.string "location"
+    t.string "why"
     t.integer "cost", default: 0
-    t.text "summary", null: false
+    t.string "summary", null: false
     t.text "description"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_104323) do
     t.datetime "locked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "name", null: false
+    t.string "name", null: false
     t.integer "phone"
     t.integer "role", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
