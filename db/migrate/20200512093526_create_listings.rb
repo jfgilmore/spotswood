@@ -2,7 +2,7 @@ class CreateListings < ActiveRecord::Migration[6.0]
   def change
     create_table :listings do |t|
       t.text :name, null: false
-      t.datetime :when
+      t.datetime :time
       t.text :location
       t.text :why
       t.integer :cost, default: 0
