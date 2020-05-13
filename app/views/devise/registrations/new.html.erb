@@ -4,7 +4,7 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <% if current_user %>
-    <%= image_tag user_avatar(current_user, 100), class: 'rounded-circle' %>
+    <%= image_tag user_avatar(current_user, 100), class: 'rounded-circle', alt: user.name %>
     <%= f.file_field :avatar %>
   <% end %>
 
