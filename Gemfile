@@ -49,4 +49,14 @@ gem "rspec-rails", "~> 4.0"
 
 gem "faker", "~> 2.11"
 
+gem "aws-sdk-s3", "~> 1.64"
+
 gem "client_side_validations", "~> 16.2"
+
+gem "cancancan", "~> 3.1"
+
+gem "material_icons", "~> 2.2"
+
+gem "mini_magick", "~> 4.10"
+
+gem "image_processing", "~> 1.10"
