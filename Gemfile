@@ -48,3 +48,5 @@ gem "devise", "~> 4.7"
 gem "rspec-rails", "~> 4.0"
 
 gem "faker", "~> 2.11"
+
+gem "client_side_validations", "~> 16.2"
