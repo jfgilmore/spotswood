@@ -16,10 +16,10 @@
  *= require material_icons
  */
 
- .field_with_errors {
-     display: inline;
- }
+.field_with_errors {
+    display: inline;
+}
 .field_with_errors.message {
     padding-left: 1em;
-    color: red($color: #000000);
+    color: red;
 }

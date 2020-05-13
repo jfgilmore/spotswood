@@ -14,7 +14,7 @@
   <div class="container-fluid">
     <%= render 'layouts/nav' %>
   </div>
-  <main class="container container-sm container-md container-lg container-xl">
+  <main>
     <label for="#{instance.send(:tag_id)}" class="message"><%= render 'layouts/alerts' %></label>
     <%= yield %>
   </main>
