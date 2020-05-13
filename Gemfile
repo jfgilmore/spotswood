@@ -52,3 +52,5 @@ gem "faker", "~> 2.11"
 gem "aws-sdk-s3", "~> 1.64"
 
 gem "client_side_validations", "~> 16.2"
+
+gem "cancancan", "~> 3.1"

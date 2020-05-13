@@ -36,7 +36,7 @@
     <%= f.check_box :coc %>
   </div>
 
-  <% if can? manage: User %>
+  <% if can? :manage, User %>
     <%= f.select :role, %i[User Moderator Admin]%>
   <% else %>
     <% f.select :role, %i[User Moderator Admin], default: :User%>

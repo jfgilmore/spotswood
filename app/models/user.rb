@@ -1,10 +1,13 @@
 class User < ApplicationRecord
+  scope :admin, -> { where(role: :admin) }
+  scope :user, -> { where(role: :user) }
+  scope :moderator, -> { where(role: :moderator) }
   after_initialize do
     if self.new_record?
-      self.role ||= :User
+      self.role ||= :user
     end
   end
-  enum role: %i[User Moderator Admin]
+  enum role: %i[user moderator admin]
   # Include default devise modules. Others available are:
   # :confirmable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
