@@ -1,11 +1,16 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, validate: true) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+
+  <% if current_user %>
+    <%= image_tag user_avatar(current_user, 100), class: 'rounded-circle', alt: current_user.name %>
+    <%= f.file_field :avatar %>
+  <% end %>
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.email_field :name, autofocus: true, autocomplete: "name" %>
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
   </div>
 
   <div class="field">

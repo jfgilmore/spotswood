@@ -16,7 +16,7 @@ class User < ApplicationRecord
 
   validates :name, :email, presence: true
   validates :name, length: { in: 2...50 }
-  validates :password, :password_confirmation, length: { minimum: 6 }
+  validates :password, :password_confirmation, length: { minimum: 6 }, on: :create
   # Code of conduct validated but not saved as all users MUST accept
   validates :coc, acceptance: true
 

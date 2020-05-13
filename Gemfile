@@ -56,3 +56,5 @@ gem "client_side_validations", "~> 16.2"
 gem "cancancan", "~> 3.1"
 
 gem "material_icons", "~> 2.2"
+
+gem "mini_magick", "~> 4.10"
