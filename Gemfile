@@ -58,3 +58,5 @@ gem "cancancan", "~> 3.1"
 gem "material_icons", "~> 2.2"
 
 gem "mini_magick", "~> 4.10"
+
+gem "image_processing", "~> 1.10"
