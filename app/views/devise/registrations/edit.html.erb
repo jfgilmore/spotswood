@@ -36,6 +36,12 @@
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
+  <% if can? manage: User %>
+    <%= f.select :role, %i[User Moderator Admin]%>
+  <% else %>
+    <% f.select :role, %i[User Moderator Admin], default: :User%>
+  <% end %>
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
