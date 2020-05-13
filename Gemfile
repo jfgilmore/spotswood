@@ -54,3 +54,5 @@ gem "aws-sdk-s3", "~> 1.64"
 gem "client_side_validations", "~> 16.2"
 
 gem "cancancan", "~> 3.1"
+
+gem "material_icons", "~> 2.2"
