@@ -16,7 +16,7 @@
     <% if current_user %>
       <li class="dropdown">
         <%= link_to (image_tag user_avatar(current_user, 60), class: 'rounded-circle'), '#', class: 'btn dropdown-toggle', role: 'button', id: 'dropdownMenuLink', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false', title:'Account options' %>
-        <div class="dropdown-menu mr-1" aria-labelledby="dropdownMenuLink">
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
           <%= link_to 'My Account', edit_user_registration_path, class: 'dropdown-item', title:'My Account'  %>
           <div class="dropdown-divider"></div>
           <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'dropdown-item', title:'Sign Out' %>
