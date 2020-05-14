@@ -1,18 +1,36 @@
+// Loading Bootstrap overrides
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Open+Sans&display=swap');
 $font-family-base: 'Nunito', sans-serif;
 
+// Load bootstrap styles
 @import "~bootstrap/scss/bootstrap";
 
 html, body {
-    height: 100%;
+    min-height: 100vh;
+    height: auto;
 }
 
 main {
-    height: 80%;
+    height: auto;
+    min-height: 80%;
 }
 
 .container-fluid {
     margin: 0 auto;
     height: 100%;
-    padding: 20px 0;
+}
+
+[type="submit"] {
+    width: fit-content;
+}
+
+input {
+    width: 100%;
+}
+
+.field_with_errors {
+    display: inline;
+    input {
+        border-color: red;
+    }
 }
