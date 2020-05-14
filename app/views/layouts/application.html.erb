@@ -1,22 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
   <head>
     <title>Spotswood</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-  <div class="container-fluid">
-    <%= render 'layouts/nav' %>
-  </div>
-  <main>
-    <label for="#{instance.send(:tag_id)}" class="message"><%= render 'layouts/alerts' %></label>
-    <%= yield %>
+  <header>
+    <%= render 'shared/nav' %>
+  </header>
+
+  <main class='container-fluid'>
+      <div class="row justify-content-center">
+        <label for="#{instance.send(:tag_id)}" class='message'><%= render 'shared/alerts' %></label>
+      </div>
+      <%= yield %>
   </main>
+
+  <footer><%= render 'shared/footer' %></footer>
   </body>
 </html>
