@@ -8,9 +8,8 @@ class Ability
     user ||= User.new # guest user (not logged in)
     can :read, :listings
     if user.user?
-      can %i[edit update destroy], User, user_id: user.id
+      can %i[edit update destroy], User, id: user.id
       can %i[new create edit update destroy], :listings, Listing, user: user
-      can :read, user: :name
     elsif user.moderator?
       can %i[index read show new create edit update]
     elsif user.admin?

@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+    <%= form_with(model: resource, validate: true) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <% if @current_user %>
+            <div class="field">
+                <%= image_tag user_avatar(resource, 100), class: 'rounded-circle mb-2', alt: resource.name %>
+                <%= f.file_field :avatar %>
+            </div>
+        <% end %>
+
+        <div class="field">
+            <%= f.label :name %><br />
+            <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+        </div>
+
+        <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <hr class= 'mt-5'/>
+
+        <div class="field">
+            <% if @current_user == resource %>
+                <h3>Change password</h3>
+                <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+                <%= f.password_field :password, autocomplete: "new-password" %>
+                <% if @minimum_password_length %>
+                    <br />
+                    <em><%= @minimum_password_length %> characters minimum</em>
+                <% end %>
+                    <hr class='mb-5' />
+                    <div class="field">
+                        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+                        <%= f.password_field :current_password, autocomplete: "current-password" %>
+                    </div>
+            <% else %>
+                <%= link_to "Send user reset password instructions", password_path(resource), method: :post, class: 'btn btn-warning' %>
+                <hr class='mb-5' />
+            <% end %>
+        </div>
+
+        <% if can? :manage, User %>
+            <div class="field mt-2 mb-2">
+                <%= f.label :role %>
+                <%= f.select :role, %i[user moderator admin]%>
+            </div>
+            <div class="field mt-2 mb-2">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Login Attempts</th>
+                            <th scope="col">Created</th>
+                            <th scope="col">Modified</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><%= resource.failed_attempts %></td>
+                            <td><%= resource.updated_at %></td>
+                            <td><%= resource.created_at %></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <% else %>
+            <% f.select :role, %i[user moderator admin], default: :user %>
+        <% end %>
+
+        <div class="actions mt-2">
+            <%= f.submit "Update", class: 'btn btn-success' %>
+        </div>
+    <% end %>
+</div>
