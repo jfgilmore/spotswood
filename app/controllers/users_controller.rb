@@ -6,12 +6,27 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  # GET /users/new
+  def new
+    @user = User.new
+  end
+
   def edit
+  end
+
+  # Post /users
+  def create
+    @user = user.new(user_params)
+    if @user.save
+      redirect_to @users
+    else
+      render :new
+    end
   end
 
   # Update a user only if changes were made
   def update
-    @user = resource
+    @user.assign_attributes(user_params)
 
     if @user.changed?
       if @user.update(user_params)
@@ -19,6 +34,7 @@ class UsersController < ApplicationController
       else
         render :edit
       end
+    else
       redirect_to users_path
     end
   end
