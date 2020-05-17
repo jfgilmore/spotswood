@@ -7,6 +7,7 @@ class User < ApplicationRecord
       self.role ||= :user
     end
   end
+
   enum role: %i[user moderator admin]
   # Include default devise modules. Others available are:
   # :confirmable, :timeoutable, :trackable and :omniauthable
@@ -16,7 +17,7 @@ class User < ApplicationRecord
 
   validates :name, :email, presence: true
   validates :name, length: { in: 2...50 }
-  validates :password, :password_confirmation, length: { minimum: 6 }, on: :create
+  validates :password, length: { minimum: 6 }, presence: true, on: :create
   # Code of conduct validated but not saved as all users MUST accept
   validates :coc, acceptance: true
 

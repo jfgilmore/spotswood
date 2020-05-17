@@ -7,6 +7,11 @@
       <li class="nav-item">
         <%= link_to show_svg('person_pin_circle-black-60dp.svg'), root_path, class: 'nav-link', 'data-toggle': 'tooltip', title:'My neighborhood' %>
       </li>
+      <% if can? :manage, User %>
+        <li class="nav-item">
+          <%= link_to 'User Admin', users_path, class: "nav-link" %>
+        </li>
+      <% end %>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -24,7 +29,7 @@
       </li>
     <% else %>
         <li class="nav-item">
-          <%= link_to 'Sign in', new_user_session_path, class: 'nav-link btn btn-outline-primary' %>
+          <%= link_to 'Sign in', new_user_session_path, class: 'nav-link btn btn-outline-primary ml-4' %>
         </li>
     <% end %>
     </ul>

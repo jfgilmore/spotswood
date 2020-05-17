@@ -1,8 +1,11 @@
-<div class='container'>
-  <h1 class='font'>Welcome to Spotswood</h1>
-  <% if current_user %>
-    <h1 class='font color-secondary'><%= current_user.name %></h1>
-  <% else %>
-    <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-outline-primary' %>
-  <% end %>
+<div class="row justify-content-center">
+  <h1 class='text-center'>Welcome to Spotswood
+<% if current_user %>
+  <span class='color-secondary'><%= current_user.name %></span></h1>
 </div>
+<% else %>
+</h1></div>
+<div class="row justify-content-center">
+  <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-outline-primary' %>
+</div>
+<% end %>

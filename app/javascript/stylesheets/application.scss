@@ -1,1 +1,63 @@
+// Loading Bootstrap overrides
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Open+Sans&display=swap');
+$font-family-base: 'Nunito', sans-serif;
+
+// Future feature!!!
+// @media (prefers-color-scheme: dark) {}
+/* Applies styles when Reduced Motion is enabled */
+// @media screen and (prefers-reduced-motion: reduce) { }
+// @media screen and (prefers-reduced-motion) { }
+
+// Load bootstrap styles
 @import "~bootstrap/scss/bootstrap";
+
+@keyframes fade-all {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+html, body {
+    min-height: 100vh;
+    height: auto;
+    animation-name: fade-all;
+    // opacity: 0;
+    animation-delay: 0.2s;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+
+main {
+    height: auto;
+    min-height: 80%;
+}
+
+// Possibility for fading in errors???
+.fade-tag {
+    animation-name: fade-all;
+    opacity: 0;
+    animation-delay: 0.2s;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+
+.container-fluid {
+    margin: 0 auto;
+    height: 100%;
+}
+
+[type="submit"] {
+    width: fit-content;
+}
+
+input {
+    width: 100%;
+}
+
+.field_with_errors {
+    display: inline;
+    input {
+        border-color: red;
+    }
+}

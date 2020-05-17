@@ -29,6 +29,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem "pry", "~> 0.13.1"
 end
 
 group :development do
@@ -60,3 +61,5 @@ gem "material_icons", "~> 2.2"
 gem "mini_magick", "~> 4.10"
 
 gem "image_processing", "~> 1.10"
+
+gem "pry-remote", "~> 0.1.8"
