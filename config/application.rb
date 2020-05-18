@@ -31,5 +31,9 @@ module Spotswood
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Set local: true for all forms to disable remote forms
+    config.action_view.form_with_generates_remote_forms = false
+    config.action_view.form_for_generates_remote_forms = false
   end
 end
