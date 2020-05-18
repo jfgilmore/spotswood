@@ -1,16 +1,20 @@
 module ApplicationHelper
+  # Image helpers
+  def set_image(image, size = 200)
+    image.variant(resize: "#{size}x#{size}!")
+  end
 
   def user_avatar(user, size=28)
     if user.avatar.attached?
       user.avatar.variant(resize: "#{size}x#{size}!")
     else
-      gravatar_image_url(user)
+      gravatar_image_url(user, size)
     end
   end
 
-  def gravatar_image_url(user)
+  def gravatar_image_url(user, size)
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
-    "https://secure.gravatar.com/avatar/#{gravatar_id}"
+    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
   end
 
   def show_svg(path)

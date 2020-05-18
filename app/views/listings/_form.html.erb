@@ -1,0 +1,61 @@
+<%= form_with model: @listing, validate: true do |f| %>
+<div class="row justify-content-center">
+  <%# edit buttons %>
+  <%= f.submit class: 'btn btn-success' %>
+</div>
+
+<%# Images %>
+<div class="row justify-content-center">
+  <div class="col justify-content-end">
+    <% if @listing.images.attached? %>
+        <%= image_tag @listing.display_size(0), class: 'img-fluid' %>
+        <% if @listing.images.count > 1 %>
+            <% (1...@listing.images.count).each do |img| %>
+                <%= image_tag @listing.thumbnail[img], class: 'img-thumbnail' %>
+            <% end %>
+        <% end %>
+        <%= show_svg('image-placeholder-thumbnail.svg') %>
+        <%= f.file_field :images, multiple: true %>
+    <% else %>
+      <%= show_svg('image-placeholder-big.svg') %>
+      <%= f.file_field :images, multiple: true %>
+    <% end %>
+  </div>
+
+  <%# Copy %>
+  <div class="col justify-content-start">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="form-group">
+      <%= f.label :time %>
+      <%= f.datetime_select :time, :ampm => true, :minute_step => 15 %>
+    </div>
+    <div class="form-group">
+      <%= f.label :location %>
+      <%= f.text_field :location %>
+    </div>
+    <div class="form-group">
+      <%= f.label :why %>
+      <%= f.text_field :why %>
+    </div>
+    <div class="form-group">
+      <%= f.label :cost %>
+      <%= f.number_field :cost %>
+    </div>
+    <div class="form-group">
+      <%= f.label :summary %>
+      <%= f.text_field :summary %>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+<h2>Details</h2>
+    <div class="form-group">
+    <%= f.label :description %>
+    <%= sanitize f.text_field :description %>
+    </div>
+</div>
+<% end %>

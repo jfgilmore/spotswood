@@ -21,5 +21,6 @@ class User < ApplicationRecord
   # Code of conduct validated but not saved as all users MUST accept
   validates :coc, acceptance: true
 
-  has_one_attached :avatar
+  has_one_attached :avatar, dependent: :destroy
+  has_many :listings, dependent: :destroy
 end

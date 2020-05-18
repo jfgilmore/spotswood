@@ -9,6 +9,7 @@ $font-family-base: 'Nunito', sans-serif;
 // @media screen and (prefers-reduced-motion) { }
 
 // Load bootstrap styles
+@import "carousel";
 @import "~bootstrap/scss/bootstrap";
 
 @keyframes fade-all {
@@ -47,6 +48,18 @@ main {
     height: 100%;
 }
 
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+
+    h1 {
+        text-align: center;
+        flex: 1 0 auto;
+    }
+}
+
 [type="submit"] {
     width: fit-content;
 }
@@ -60,4 +73,10 @@ input {
     input {
         border-color: red;
     }
+}
+
+.listing-grid {
+    grid-template-columns: 200px;
+    // grid-template-rows: 200px;
+    grid-auto-flow: rows;
 }
