@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_listing, only: %i[show edit update destroy]
+  load_and_authorize_resource
 
   def index
     @listing = Listing.all
@@ -54,6 +54,6 @@ class ListingsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def listing_params
     params.require(:listing).permit(:name, :time, :location, :why, :cost,
-                                    :summary, :description)
+                                    :summary, :description, images: [])
   end
 end

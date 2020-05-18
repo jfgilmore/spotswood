@@ -9,6 +9,7 @@ $font-family-base: 'Nunito', sans-serif;
 // @media screen and (prefers-reduced-motion) { }
 
 // Load bootstrap styles
+@import "carousel";
 @import "~bootstrap/scss/bootstrap";
 
 @keyframes fade-all {

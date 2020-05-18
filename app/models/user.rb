@@ -22,4 +22,5 @@ class User < ApplicationRecord
   validates :coc, acceptance: true
 
   has_one_attached :avatar, dependent: :destroy
+  has_many :listings, dependent: :destroy
 end

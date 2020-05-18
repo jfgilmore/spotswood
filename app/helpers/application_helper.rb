@@ -1,4 +1,8 @@
 module ApplicationHelper
+  # Image helpers
+  def set_image(image, size = 200)
+    image.variant(resize: "#{size}x#{size}!")
+  end
 
   def user_avatar(user, size=28)
     if user.avatar.attached?

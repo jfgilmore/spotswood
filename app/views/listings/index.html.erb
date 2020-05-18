@@ -4,8 +4,15 @@
         <%= link_to 'Create listing', new_listing_path, class: "btn btn-primary mx-2" %>
     <% end %>
 </div>
+
+<div class="col">
 <div class="container-fluid listing-grid">
     <% @listings.each do |listing| %>
-        <%= link_to((image_tag listing.image), listing_path(listing.id), class: 'img-thumbnail')  %>
+        <% if listing.images.attached? %>
+            <%= link_to (image_tag set_image(listing.images.first, 400), class: 'img-thumbnail'), listing_path(listing) %>
+        <% else %>
+            <%= link_to (image_tag user_avatar(User.find(listing.user_id), 400), class: 'img-thumbnail'), listing_path(listing)  %>
+        <% end %>
     <% end %>
+</div>
 </div>
