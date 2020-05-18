@@ -8,9 +8,10 @@ class Listing < ApplicationRecord
   validates :cost, numericality: { only_integer: true }
   validate :cannot_be_in_the_past
 
+  has_many_attached :images, dependent: :destroy
+
   def cannot_be_in_the_past
-    if Time.now.to_i > time.to_i
-      errors.add(:when, 'New events can only happen in the future')
-    end
+    errors.add(:when, 'New events can only happen in the future') unless Time.now.to_i > time.to_i
+
   end
 end
