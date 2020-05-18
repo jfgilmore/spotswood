@@ -1,0 +1,11 @@
+<div class="row justify-content-center title-container mx-5">
+    <h1>My hood</h1>
+    <% if user_signed_in? %>
+        <%= link_to 'Create listing', new_listing_path, class: "btn btn-primary mx-2" %>
+    <% end %>
+</div>
+<div class="container-fluid listing-grid">
+    <% @listings.each do |listing| %>
+        <%= link_to((image_tag listing.image), listing_path(listing.id), class: 'img-thumbnail')  %>
+    <% end %>
+</div>
