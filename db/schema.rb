@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_044223) do
   create_table "interactions", force: :cascade do |t|
     t.bigint "listing_id", null: false
     t.bigint "user_id", null: false
-    t.integer "type", null: false
+    t.integer "user_action", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["listing_id"], name: "index_interactions_on_listing_id"
