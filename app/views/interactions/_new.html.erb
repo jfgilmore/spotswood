@@ -1,0 +1,11 @@
+<table>
+    <% Interaction.user_actions.each do |a| %>
+    <td>
+        <%= form_with model: interaction, url: interactions_path, method: "post" do |f| %>
+            <%= f.hidden_field :user_action, value: a[0] %>
+            <%= f.hidden_field :listing_id, value: @listing.id %>
+            <%= f.submit a[0].to_s.humanize, class: 'btn btn-success btn-sm' %>
+        <% end %>
+    </td>
+    <% end %>
+</table>

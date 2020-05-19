@@ -1,14 +1,15 @@
 class User < ApplicationRecord
-  # scope :admin, -> { where(role: :admin) }
-  # scope :user, -> { where(role: :user) }
-  # scope :moderator, -> { where(role: :moderator) }
+  has_one_attached :avatar, dependent: :destroy
+  has_many :listings, dependent: :destroy
+  has_many :interactions
+  enum role: %i[user moderator admin]
+
   after_initialize do
     if self.new_record?
       self.role ||= :user
     end
   end
 
-  enum role: %i[user moderator admin]
   # Include default devise modules. Others available are:
   # :confirmable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -21,6 +22,4 @@ class User < ApplicationRecord
   # Code of conduct validated but not saved as all users MUST accept
   validates :coc, acceptance: true
 
-  has_one_attached :avatar, dependent: :destroy
-  has_many :listings, dependent: :destroy
 end
