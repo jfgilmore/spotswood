@@ -6,7 +6,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md justify-content-start">
+    <div class="col-lg justify-content-start">
     <% if @listing.images.attached? %>
         <% num = @listing.images.count - 1 %>
         <% if num > 0 %>
@@ -40,7 +40,7 @@
     </div>
 
     <%# Copy %>
-    <div class="col-md justify-content-start">
+    <div class="col-lg justify-content-start">
         <h1 class='display-3'><%= @listing.name %></h1>
         <h3>When</h3><p><%= @listing.time.to_formatted_s(:long_ordinal) %></p>
         <h3>Where</h3><p><%= @listing.location %></p>
@@ -50,6 +50,17 @@
     </div>
 </div>
 
-<div class="row justify-content-center mt-1">
+<div class="row justify-content-center mt-1 mb-3">
+    <div class="col-lg d-flex justify-content-sm-center justify-content-md-end ">
+        <button class='btn btn-outline-dark center btn-lg'>
+            <span class="hidden-xs hidden-sm">Hosted by <%= @listing.user.name %></span>
+            <%= image_tag user_avatar(User.find(@listing.user_id), 60), class: 'img-fluid rounded-circle'  %>
+        </button>
+    </div>
+    <div class="col-lg">
+    </div>
+</div>
+
+<div class="row justify-content-center m-1">
     <%= sanitize(raw(@listing.description), tags: %w(strong em a comment blockquote h3 h4), attributes: %w(href title) ) %>
 </div>
