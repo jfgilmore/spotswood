@@ -8,15 +8,10 @@
 <div class="col">
 <div class="container-fluid listing-grid">
     <% @listings.each do |listing| %>
-        <% if user_interaction? listing %>
-            <% class_value = 'img-thumbnail border border-success' %>
-        <% else %>
-            <% class_value = 'img-thumbnail border border-light' %>
-        <% end %>
         <% if listing.images.attached? %>
-            <%= link_to (image_tag set_image(listing.images.first, 400), class: class_value), listing_path(listing) %>
+            <%= link_to (image_tag set_image(listing.images.first, 400), class: class_value(listing)), listing_path(listing) %>
         <% else %>
-            <%= link_to (image_tag user_avatar(User.find(listing.user_id), 400), class: class_value), listing_path(listing)  %>
+            <%= link_to (image_tag user_avatar(User.find(listing.user_id), 400), class: class_value(listing)), listing_path(listing)  %>
         <% end %>
     <% end %>
 </div>
