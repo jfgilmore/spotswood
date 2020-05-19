@@ -16,6 +16,7 @@ class ListingsController < ApplicationController
 
   def create
     @listing = current_user.listings.new(listing_params)
+
     if @listing.save
       redirect_to @listing
     else
@@ -54,6 +55,6 @@ class ListingsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def listing_params
     params.require(:listing).permit(:name, :time, :location, :why, :cost,
-                                    :summary, :description, images: [])
+                                    :summary, :description, :updated_at, images: [])
   end
 end

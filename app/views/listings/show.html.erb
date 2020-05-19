@@ -50,6 +50,6 @@
     </div>
 </div>
 
-<div class="row justify-content-start">
-    <%= raw(@listing.description) %>
+<div class="row justify-content-center mt-1">
+    <%= sanitize(raw(@listing.description), tags: %w(strong em a comment blockquote h3 h4), attributes: %w(href title) ) %>
 </div>

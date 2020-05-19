@@ -1,17 +1,17 @@
 <%= form_with model: @listing, validate: true do |f| %>
 <div class="row justify-content-center">
   <%# edit buttons %>
-  <%= f.submit class: 'btn btn-success' %>
+  <%= f.submit class: 'btn btn-success m-1' %>
 </div>
 
 <%# Images %>
 <div class="row justify-content-center">
-  <div class="col justify-content-end">
-    <% if @listing.images.attached? %>
+  <div class="col-md justify-content-start">
+    <% if @listing.images.attached? && @listing.valid? %>
         <%= image_tag @listing.display_size(0), class: 'img-fluid' %>
         <% if @listing.images.count > 1 %>
             <% (1...@listing.images.count).each do |img| %>
-                <%= image_tag @listing.thumbnail[img], class: 'img-thumbnail' %>
+                <%= image_tag @listing.thumbnail(img, 200), class: 'img-thumbnail' %>
             <% end %>
         <% end %>
         <%= show_svg('image-placeholder-thumbnail.svg') %>
@@ -21,41 +21,48 @@
       <%= f.file_field :images, multiple: true %>
     <% end %>
   </div>
+  <%# Included to ensure image updates are respected despite rails bug %>
+  <%= f.hidden_field :updated_at, value: DateTime.current %>
 
   <%# Copy %>
-  <div class="col justify-content-start">
+  <div class="col-md justify-content-start">
     <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+      <h3><%= f.label :name %></h3>
+      <%= f.text_field :name, class: 'display-3', placeholder: "Your event name" %>
     </div>
     <div class="form-group">
-      <%= f.label :time %>
+      <h3><%= f.label :time %></h3>
       <%= f.datetime_select :time, :ampm => true, :minute_step => 15 %>
     </div>
     <div class="form-group">
-      <%= f.label :location %>
-      <%= f.text_field :location %>
+      <h3><%= f.label :location %></h3>
+      <%= f.text_field :location, placeholder: "Where is this happening?" %>
     </div>
     <div class="form-group">
-      <%= f.label :why %>
-      <%= f.text_field :why %>
+      <h3><%= f.label :why %></h3>
+      <%= f.text_field :why, placeholder: "Why are we doing this again?" %>
     </div>
     <div class="form-group">
-      <%= f.label :cost %>
-      <%= f.number_field :cost %>
+      <h3><%= f.label :cost %></h3>
+      <%= f.number_field :cost, placeholder: "0.00" %>
     </div>
     <div class="form-group">
-      <%= f.label :summary %>
-      <%= f.text_field :summary %>
+      <h3><%= f.label :summary %></h3>
+      <%= f.text_field :summary, placeholder: "Write a short summary here (keep it under 120 characters)" %>
     </div>
   </div>
 </div>
 
+<div class="form-group">
+  <div class="row justify-content-center disabled">
+      <%= f.label :description %>
+  </div>
+  <div class="row justify-content-center">
+      <%= f.text_area :description, placeholder: "Tell us all the details, feel free to use some html here if you know how." %>
+  </div>
+</div>
 <div class="row justify-content-center">
-<h2>Details</h2>
-    <div class="form-group">
-    <%= f.label :description %>
-    <%= sanitize f.text_field :description %>
-    </div>
+  <%# edit buttons %>
+  <%= f.submit class: 'btn btn-success m-1' %>
 </div>
 <% end %>
