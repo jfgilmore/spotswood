@@ -2,6 +2,7 @@ class Listing < ApplicationRecord
   belongs_to :user
   has_many_attached :images, dependent: :destroy
   has_many :interactions
+  enum category: %i[sharing caring fundraising selling]
 
   validate :image_type
   validate :cannot_be_in_the_past
