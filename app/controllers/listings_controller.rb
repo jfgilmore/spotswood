@@ -3,7 +3,11 @@ class ListingsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @listing = Listing.all
+    if params[:search]
+      @listings = Listing.search(params[:search])
+    else
+      @listings = Listing.all.includes(:user).limit(20)
+    end
   end
 
   def show; end
@@ -54,7 +58,8 @@ class ListingsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def listing_params
-    params.require(:listing).permit(:name, :time, :location, :why, :cost,
-                                    :summary, :description, :updated_at, images: [])
+    params.require(:listing).permit(:name, :at_time, :location, :why, :cost,
+                                    :summary, :description, :updated_at,
+                                    :search, images: [])
   end
 end

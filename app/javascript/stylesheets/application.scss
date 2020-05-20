@@ -10,6 +10,7 @@ $font-family-base: 'Nunito', sans-serif;
 
 // Load bootstrap styles
 @import "carousel";
+@import "listings";
 @import "~bootstrap/scss/bootstrap";
 
 @keyframes fade-all {
@@ -73,10 +74,4 @@ input {
     input {
         border-color: red;
     }
-}
-
-.listing-grid {
-    grid-template-columns: 200px;
-    // grid-template-rows: 200px;
-    grid-auto-flow: rows;
 }

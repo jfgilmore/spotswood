@@ -28,7 +28,7 @@ def make_listing(user)
   5.times do
     lstng = user.listings.new(
       name: Faker::Hacker.adjective,
-      time: Faker::Time.forward(days: 10, period: :afternoon),
+      at_time: Faker::Time.forward(days: 10, period: :afternoon),
       location: Faker::Address.full_address,
       why: Faker::Lorem.sentence,
       cost: rand(100),

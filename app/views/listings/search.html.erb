@@ -1,10 +1,5 @@
 <div class="row justify-content-center title-container mx-5">
-    <% if params[:search] %>
-        <%= sanitize(tag.h1('In search of: ' + params[:search])) %>
-    <% else %>
-        <h1>My hood</h1>
-    <% end %>
-
+    <%= sanitize(tag.h1('In search of: ' + params[:search])) %>
     <% if user_signed_in? %>
         <%= link_to 'Create listing', new_listing_path, class: "btn btn-primary mx-2" %>
     <% end %>

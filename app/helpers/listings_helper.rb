@@ -9,9 +9,9 @@ module ListingsHelper
 
   def class_value listing
     if user_interaction? listing
-      'img-thumbnail border border-success'
+      'img-thumbnail border border-success shadow-lg p-3 mb-3'
     else
-      'img-thumbnail border border-light'
+      'img-thumbnail border border-light p-3 mb-3'
     end
   end
 end
