@@ -5,6 +5,7 @@
     <% end %>
 </div>
 
+<%# Images %>
 <div class="row">
     <div class="col-lg justify-content-start">
     <% if @listing.images.attached? %>
@@ -39,17 +40,29 @@
 <% end %>
     </div>
 
-    <%# Copy %>
+<%# Copy %>
     <div class="col-lg justify-content-start">
         <h1 class='display-3'><%= @listing.name %></h1>
-        <h3>When</h3><p><%= @listing.time.to_formatted_s(:long_ordinal) %></p>
+        <h3>When</h3><p><%= @listing.at_time.to_formatted_s(:long_ordinal) %></p>
         <h3>Where</h3><p><%= @listing.location %></p>
         <h3>Why</h3><p><%= @listing.why %></p>
-        <h3>Cost</h3><p><%= @listing.cost %></p>
+        <div class='row'>
+            <span class="col-lg">
+                <h3>Cost</h3><p><%= @listing.cost %></p>
+            </span>
+            <span class="col-lg m-2">
+            <% if user_interaction? @listing %>
+                <%= render 'interactions/edit', interaction: (user_interaction @listing) %>
+            <% else %>
+                <%= render 'interactions/new', interaction: Interaction.new %>
+            <% end %>
+            </span>
+        </div>
         <h3>Summary</h3><p><%= @listing.summary %></p>
     </div>
 </div>
 
+<%# Created by tag %>
 <div class="row justify-content-center mt-1 mb-3">
     <div class="col-lg d-flex justify-content-sm-center justify-content-md-end ">
         <button class='btn btn-outline-dark center btn-lg'>
@@ -61,6 +74,7 @@
     </div>
 </div>
 
+<%# html enabled description %>
 <div class="row justify-content-center m-1">
     <%= sanitize(raw(@listing.description), tags: %w(strong em a comment blockquote h3 h4), attributes: %w(href title) ) %>
 </div>

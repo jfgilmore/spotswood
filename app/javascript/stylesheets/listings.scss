@@ -1,0 +1,17 @@
+.listing-grid {
+    grid-template-columns: 200px;
+
+    grid-auto-flow: row dense;
+    text-align: center;
+}
+
+.listing {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

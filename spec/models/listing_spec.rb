@@ -6,7 +6,7 @@ RSpec.describe Listing, type: :model do
     described_class.new(
       name: "Tiny Tim's fundraiser", summary: 'Tims needs help, he has a rare
       genetic disease that makes it so he can not use appostrophes',
-      time: (Time.now + 24 * 60 * 60), location: 'My house', user: user
+      at_time: (Time.now + 24 * 60 * 60), location: 'My house', user: user
     )
   end
 

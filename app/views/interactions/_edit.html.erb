@@ -1,0 +1,11 @@
+<table>
+    <% Interaction.user_actions.each do |a| %>
+    <td>
+        <%= form_with model: interaction, url: interaction_path(interaction.id), method: "patch" do |f| %>
+            <%= f.hidden_field :user_action, value: a[0] %>
+            <%= f.hidden_field :listing_id, value: @listing.id %>
+            <%= f.submit a[0].to_s.humanize, class: button_class_value(@listing, a) %>
+        <% end %>
+    </td>
+    <% end %>
+</table>

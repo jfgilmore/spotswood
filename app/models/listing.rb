@@ -5,6 +5,7 @@ class Listing < ApplicationRecord
 
   validate :image_type
   validate :cannot_be_in_the_past
+  validates :at_time, presence: true
   validates :name, length: { in: 2...40 }
   validates :summary, length: { in: 22...120 }
   validates :location, length: { in: 6...200 }
@@ -12,7 +13,7 @@ class Listing < ApplicationRecord
 
   # Validation helpers
   def cannot_be_in_the_past
-    errors.add(:time, 'New events can only happen in the future') unless Time.zone.now.to_i < time.to_i
+    errors.add(:at_time, 'New events can only happen in the future') unless Time.zone.now.to_i < at_time.to_i
   end
 
   def image_type
@@ -28,5 +29,9 @@ class Listing < ApplicationRecord
 
   def thumbnail(input, size = 50)
     return self.images[input].variant(resize: "#{size}x#{size}!")
+  end
+
+  def self.search(search)
+    where('name LIKE ? OR summary LIKE ? OR description LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
   end
 end
