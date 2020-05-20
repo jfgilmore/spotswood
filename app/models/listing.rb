@@ -2,6 +2,7 @@ class Listing < ApplicationRecord
   belongs_to :user
   has_many_attached :images, dependent: :destroy
   has_many :interactions
+  belongs_to :category
 
   validate :image_type
   validate :cannot_be_in_the_past
@@ -10,6 +11,7 @@ class Listing < ApplicationRecord
   validates :summary, length: { in: 22...120 }
   validates :location, length: { in: 6...200 }
   validates :cost, numericality: { only_integer: true }
+  validates :category, presence: true
 
   # Validation helpers
   def cannot_be_in_the_past
@@ -32,6 +34,6 @@ class Listing < ApplicationRecord
   end
 
   def self.search(search)
-    where('name LIKE ? OR summary LIKE ? OR description LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
+    where('name LIKE ? OR summary LIKE ?', "%#{search}%", "%#{search}%")
   end
 end

@@ -44,6 +44,7 @@ def make_listing(user)
       why: Faker::Lorem.sentence,
       cost: rand(100),
       summary: Faker::Lorem.sentence,
+      category_id: rand(4),
       description: Faker::Lorem.paragraph_by_chars,
       updated_at: DateTime.current
     )
@@ -61,6 +62,13 @@ def make_interaction(user)
     ).save ? print('.') : ''
   end
 end
+
+# Let's do this
+Category.create(name: 'Guiding')
+Category.create(name: 'Sharing')
+Category.create(name: 'Caring')
+Category.create(name: 'Selling')
+Category.create(name: 'Seeking')
 
 # Test admin
 admin = User.create(

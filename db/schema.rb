@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_085245) do
+ActiveRecord::Schema.define(version: 2020_05_20_101312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,13 @@ ActiveRecord::Schema.define(version: 2020_05_20_085245) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "interactions", force: :cascade do |t|
     t.bigint "listing_id", null: false
     t.bigint "user_id", null: false
@@ -57,7 +64,12 @@ ActiveRecord::Schema.define(version: 2020_05_20_085245) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "category"
+    t.integer "category_id", null: false
+    t.index ["at_time"], name: "index_listings_on_at_time"
+    t.index ["category_id"], name: "index_listings_on_category_id"
+    t.index ["location"], name: "index_listings_on_location"
+    t.index ["name"], name: "index_listings_on_name"
+    t.index ["summary"], name: "index_listings_on_summary"
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
 

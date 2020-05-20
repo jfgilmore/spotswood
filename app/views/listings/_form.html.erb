@@ -47,6 +47,10 @@
       <%= f.number_field :cost, placeholder: "0.00" %>
     </div>
     <div class="form-group">
+      <h3><%= f.label :category %></h3>
+      <% f.select :category, Category.all, default: Sharing %>
+    </div>
+    <div class="form-group">
       <h3><%= f.label :summary %></h3>
       <%= f.text_field :summary, placeholder: "Write a short summary here (keep it under 120 characters)" %>
     </div>
