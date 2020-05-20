@@ -16,7 +16,7 @@ def profile_fetcher
 end
 
 def image_fetcher
-  URI.open("https://picsum.photos/900/1200")
+  URI.open("https://picsum.photos/200/300")
 end
 
 def avatar_attach(user)
