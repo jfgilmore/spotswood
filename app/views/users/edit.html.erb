@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+  <h2>Edit user</h2>
+</div>
+
+<div class="row justify-content-center">
+<%= form_with(model: @user, as: current_user.role, url: user_path(@user), html: { method: :put }, validate: true) do |f| %>
+<%# Error handling??? %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autocomplete: "email" %>
+  </div>
+
+  <div class="field mt-2 mb-2">
+      <table class="table">
+          <thead>
+              <tr>
+                  <th scope="col">Login Attempts</th>
+                  <th scope="col">Created</th>
+                  <th scope="col">Modified</th>
+                  <th scope="col"></th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td><%= @user.failed_attempts %></td>
+                  <td><%= @user.updated_at %></td>
+                  <td><%= @user.created_at %></td>
+                  <td><%= link_to "Password reset", password_path(@user),
+                              method: :post, class: 'btn `btn-warning mt-2' %></td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  <div class="field">
+    <%= f.label :role %><br />
+    <%= f.select :role, %i[user moderator admin]%>
+  </div>
+
+  <div class="actions mt-2">
+    <%= f.submit "Update", class: 'btn btn-success' %>
+    <%= link_to "Back", :back, class: 'btn btn-primary' %>
+  </div>
+<% end %>
+</div>
