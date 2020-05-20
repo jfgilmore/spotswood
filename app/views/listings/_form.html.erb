@@ -47,8 +47,8 @@
       <%= f.number_field :cost, placeholder: "0.00" %>
     </div>
     <div class="form-group">
-      <h3><%= f.label :category %></h3>
-      <%= f.select :category, Category.all, default: :Sharing %>
+      <h3><%= f.label :category_id %></h3>
+      <%= f.collection_select :category_id, Category.all, :id, :name, default: :Sharing %>
     </div>
     <div class="form-group">
       <h3><%= f.label :summary %></h3>
