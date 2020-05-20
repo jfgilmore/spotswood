@@ -1,17 +1,30 @@
+# frozen_string_literal: true
+
 class ListingsController < ApplicationController
   before_action :set_listing, only: %i[show edit update destroy]
   load_and_authorize_resource
 
+  # All queries only allow search of current listings, past listings are only visible to their owners.
   def index
-    if params[:search]
-      @listings = Listing.search(params[:search])
+    @listings = if params[:search]
+      # Returns all listings based on search of name and summary, defined in Model.
+      Listing.with_attached_images.search(params).order(:at_time).where('at_time > ?', Time.zone.now)
+    elsif params[:category]
+      Listing.filter_by_category(params[:category]).order(:at_time).where('at_time > ?', Time.zone.now)
     else
-      @listings = Listing.all.includes(:user).limit(20)
+      # Load all listings with a future date sorted by soonest to latest.
+      # Load their images along with them for display.
+      @listings = Listing.with_attached_images.order(:at_time).where('at_time > ?', Time.zone.now)
+      # Highlighting of interacted with functions is causing more queries from the view
+      # I will consider revising this function.
     end
   end
 
+  # Article.where("published_at >= ?", Time.current)
+
   def show; end
 
+  # POST /listings --Creates a listing from the Listing ActiveModel
   def new
     @listing = Listing.new
   end
@@ -52,14 +65,15 @@ class ListingsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
+  # Search Listings in db, returns first match on id(unique).
   def set_listing
     @listing = Listing.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Only allow the white list of parameters through.
   def listing_params
     params.require(:listing).permit(:name, :at_time, :location, :why, :cost,
                                     :summary, :description, :updated_at,
-                                    :search, images: [])
+                                    :category_id, :search, images: [])
   end
 end

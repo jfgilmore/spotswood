@@ -1,48 +1,52 @@
+# frozen_string_literal: true
+
 class InteractionsController < ApplicationController
   before_action :set_interaction, only: %i[show edit update]
   load_and_authorize_resource
 
+  # Generates new Interaction from Interaction Model
+  # GET /interaction/new -> is a partial of show Listing
   def new
     @interaction = Interaction.new
   end
 
+  # POST /interaction
   def create
     @interaction = current_user.interactions.new(interaction_params)
 
-    if @interaction.save
-      flash.alert = "Awesome your going to: #{@interaction.user_action.to_s.humanize }"
-      redirect_to listing_url @interaction.listing_id
-    else
-      flash.alert = 'Something went wrong'
-      redirect_to listing_url @interaction.listing_id
-    end
+    flash.alert = if @interaction.save
+                    "Awesome your going to: #{@interaction.user_action.to_s.humanize}"
+                  else
+                    'Something went wrong'
+                  end
+    redirect_to listing_url @interaction.listing_id
   end
 
+  # PATCH /interaction/:id
+  # View is a partial of show Listing
   def edit; end
 
   # Update a interaction only if changes were made
   def update
     @interaction.assign_attributes(interaction_params)
+    return unless @interaction.changed?
 
-    if @interaction.changed?
-      if @interaction.update(interaction_params)
-        flash.alert = "Awesome your going to: #{@interaction.user_action.to_s.humanize }"
-        redirect_to listing_url @interaction.listing_id
-      else
-        flash.alert = 'Something went wrong'
-        redirect_to listing_url @interaction.listing_id
-      end
-    else
-      flash.alert = '👍'
-    end
+    flash.alert = if @interaction.update
+                    "Awesome your going to: #{@interaction.user_action.to_s.humanize}"
+                  else
+                    'Something went wrong'
+                  end
+    redirect_to listing_url @interaction.listing_id
   end
 
   private
 
+  # Search Interactions in db, returns first match on id(unique).
   def set_interaction
     @interaction = Interaction.find(params[:id])
   end
 
+  # Only allow the white list of parameters through.
   def interaction_params
     params.require(:interaction).permit(:listing_id, :user_action)
   end
