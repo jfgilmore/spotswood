@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { User.new }
-  subject { described_class.new(name: 'Tiny Tim', email: 'tim@test.com', password: '111111', role: :User) }
+  subject { described_class.new(name: 'Tiny Tim', email: 'tim@test.com', password: '111111', phone: 0400555555, role: :CommunityUser) }
 
   # Validations
   context 'validations' do
@@ -42,9 +42,19 @@ RSpec.describe User, type: :model do
 
     context 'with a duplicate email' do
       it 'is not valid' do
-        otheruser = described_class.create(name: 'Tiny Tim', email: 'tim@test.com', password: '111111', role: :User)
+        otheruser = described_class.create(name: 'Tiny Tim', email: 'tim@test.com', password: '111111', phone: 0400555555, role: :CommunityUser)
         expect(subject).to_not be_valid
       end
+    end
+
+    it 'is not valid with a non numeric phone number' do
+      subject.phone = 'avdsjjkl'
+      expect(subject).to_not be_valid
+    end
+
+    it 'is not valid with punctuation in the phone number' do
+      subject.phone = '(03)93555555'
+      expect(subject).to_not be_valid
     end
 
     it 'is not valid when code of conduct unaccepted' do
@@ -55,20 +65,6 @@ RSpec.describe User, type: :model do
     it 'is valid when code of conduct accepted' do
       subject.coc = true
       expect(subject).to be_valid
-    end
-
-    context 'when creating a user', method: :create do
-      it 'is valid when user role is not present' do
-        subject.role = nil
-        expect(subject).to be_valid
-      end
-    end
-
-    context 'when updating a user', method: :update do
-      it 'is not valid when user role is not present' do
-        subject.role = nil
-        expect(subject).to_not be_valid
-      end
     end
   end
 
