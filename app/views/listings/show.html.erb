@@ -43,7 +43,7 @@
 <%# Copy %>
     <div class="col-lg justify-content-start">
         <h1 class='display-3'><%= @listing.name %></h1>
-        <h3>When</h3><p><%= @listing.time.to_formatted_s(:long_ordinal) %></p>
+        <h3>When</h3><p><%= @listing.at_time.to_formatted_s(:long_ordinal) %></p>
         <h3>Where</h3><p><%= @listing.location %></p>
         <h3>Why</h3><p><%= @listing.why %></p>
         <div class='row'>
