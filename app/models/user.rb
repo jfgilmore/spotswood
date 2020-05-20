@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_one_attached :avatar, dependent: :destroy
   has_many :listings, dependent: :destroy
-  has_many :interactions
+  has_many :interactions, dependent: :destroy
   enum role: %i[user moderator admin]
 
   after_initialize do
