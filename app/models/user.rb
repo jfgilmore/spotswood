@@ -5,7 +5,7 @@ class User < ApplicationRecord
   enum role: { user: 0, moderator: 1, admin: 2 }
 
   after_initialize do
-    (self.role ||= :user) unless new_record?
+    (self.role ||= :user) if new_record?
   end
 
   # Include default devise modules. Others available are:
