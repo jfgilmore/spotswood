@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+# All validations implemented as client side validations
 class Listing < ApplicationRecord
   scope :filter_by_category, ->(category) { where category_id: category }
 
