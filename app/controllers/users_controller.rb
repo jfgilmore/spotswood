@@ -11,8 +11,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def edit
-  end
+  def edit; end
 
   # Post /users
   def create
@@ -30,7 +29,7 @@ class UsersController < ApplicationController
 
     if @user.changed?
       if @user.update(user_params)
-        redirect_to users_path, notice: "#{@user.name} was successfully updated."
+        redirect_to users_path, notice: "#{@user.name} was successfully updated"
       else
         render :edit
       end
@@ -41,13 +40,15 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to users_path, notice: "#{@user.name} was successfully deleted."
+    redirect_to users_path, notice: "#{@user.name} was successfully deleted"
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
+  # Eager loading user avatar when loading profile to edit
   def set_user
-    @user = User.find(params[:id])
+    @user = User.eager_load(avatar_attachment: :blob).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

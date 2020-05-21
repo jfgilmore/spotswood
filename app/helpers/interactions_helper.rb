@@ -1,9 +1,15 @@
+# frozen_string_literal: true
+
 module InteractionsHelper
-  def button_class_value listing, user_action
-    if current_user.interactions.find_by(listing_id: listing.id).user_action == user_action[0]
-      'btn btn-success btn-sm'
-    else
-      'btn btn-dark btn-sm'
+  # Handling queries on already preloaded records without running a db query
+  # Returns styling for interaction buttons to indicate present selection
+  def button_class_value(listing, user_action)
+    current_user.interactions.each do |i|
+      next unless i.listing_id == listing.id
+
+      (return 'btn btn-dark btn-sm') unless i.user_action == user_action[0]
+
+      return 'btn btn-success btn-sm'
     end
   end
 end

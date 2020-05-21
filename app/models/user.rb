@@ -2,12 +2,10 @@ class User < ApplicationRecord
   has_one_attached :avatar, dependent: :destroy
   has_many :listings, dependent: :destroy
   has_many :interactions, dependent: :destroy
-  enum role: %i[user moderator admin]
+  enum role: { user: 0, moderator: 1, admin: 2 }
 
   after_initialize do
-    if self.new_record?
-      self.role ||= :user
-    end
+    (self.role ||= :user) unless new_record?
   end
 
   # Include default devise modules. Others available are:
@@ -21,5 +19,4 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 6 }, presence: true, on: :create
   # Code of conduct validated but not saved as all users MUST accept
   validates :coc, acceptance: true
-
 end

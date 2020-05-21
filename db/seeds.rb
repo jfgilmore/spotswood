@@ -9,17 +9,28 @@ Interaction.destroy_all
 Listing.destroy_all
 User.destroy_all
 
-def image_fetcher
-  URI.open(Faker::Avatar.image(slug: "my-own-slug", size: "300x300", format: "jpg"))
+def profile_fetcher
+  URI.open("https://randomuser.me/api/portraits/#{rand(2) == 1 ? 'men' : 'women'}/#{rand(100).to_s}.jpg")
   rescue
   URI.open("https://robohash.org/sitsequiquia.png?size=300x300&set=set1")
 end
 
-def avatar_attach user
+def image_fetcher
+  URI.open("https://picsum.photos/200/300")
+end
+
+def avatar_attach(user)
   user.avatar.attach({
-    io: image_fetcher,
-    filename: "#{user.name}_faker_image.jpg"
+    io: profile_fetcher,
+    filename: "#{user.name}_fake_image.jpg"
   })
+end
+
+def attach_image(listing)
+  listing.images.attach([
+    io: image_fetcher,
+    filename: "#{listing.name}_fake_image.jpg"
+  ])
 end
 
 def make_listing(user)
@@ -33,10 +44,12 @@ def make_listing(user)
       why: Faker::Lorem.sentence,
       cost: rand(100),
       summary: Faker::Lorem.sentence,
+      category_id: rand(4),
       description: Faker::Lorem.paragraph_by_chars,
       updated_at: DateTime.current
     )
     lstng.save ? print('.') : ''
+    attach_image lstng
   end
 end
 
@@ -49,6 +62,13 @@ def make_interaction(user)
     ).save ? print('.') : ''
   end
 end
+
+# Let's do this
+Category.create(name: 'Guiding')
+Category.create(name: 'Sharing')
+Category.create(name: 'Caring')
+Category.create(name: 'Selling')
+Category.create(name: 'Seeking')
 
 # Test admin
 admin = User.create(
