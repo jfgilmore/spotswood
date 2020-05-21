@@ -46,8 +46,9 @@ class UsersController < ApplicationController
 
   private
   # Use callbacks to share common setup or constraints between actions.
+  # Eager loading user avatar when loading profile to edit
   def set_user
-    @user = User.find(params[:id])
+    @user = User.eager_load(avatar_attachment: :blob).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

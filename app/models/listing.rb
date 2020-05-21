@@ -26,7 +26,8 @@ class Listing < ApplicationRecord
 
   def image_type
     images.each do |image|
-      unless image.content_type.in?(%('image/jpeg image/jpg image/png image/gif'))
+      unless image.content_type.in?(%('image/jpeg image/jpg image/png
+        image/gif'))
         errors.add(:images, 'Only jpeg, jpg, png, and gif formats accepted')
       end
     end
@@ -34,7 +35,9 @@ class Listing < ApplicationRecord
 
   # Image helpers
   def display_size(image)
-    images[image].variant(resize_to_fill: [1200, 900, { gravity: 'Northwest' }]).processed
+    images[image].variant(resize_to_fill: [1200, 900, {
+                            gravity: 'Northwest'
+                          }]).processed
   end
 
   def thumbnail(input, size = 50)
@@ -42,7 +45,7 @@ class Listing < ApplicationRecord
   end
 
   def self.search(params)
-    where('name LIKE ? OR summary LIKE ?', "%#{params[:search]}%",
+    where('listings.name LIKE ? OR listings.summary LIKE ?', "%#{params[:search]}%",
           "%#{params[:search]}%")
   end
 end

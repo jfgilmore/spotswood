@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class InteractionsController < ApplicationController
-  before_action :set_interaction, only: %i[show edit update]
+  before_action :set_interaction, only: %i[edit update]
   load_and_authorize_resource
 
   # Generates new Interaction from Interaction Model
@@ -15,7 +15,9 @@ class InteractionsController < ApplicationController
     @interaction = current_user.interactions.new(interaction_params)
 
     flash.alert = if @interaction.save
-                    "Awesome your going to: #{@interaction.user_action.to_s.humanize}"
+                    "Awesome your going to: #{
+                      @interaction.user_action.to_s.humanize
+                    }"
                   else
                     'Something went wrong'
                   end
@@ -31,8 +33,10 @@ class InteractionsController < ApplicationController
     @interaction.assign_attributes(interaction_params)
     return unless @interaction.changed?
 
-    flash.alert = if @interaction.update
-                    "Awesome your going to: #{@interaction.user_action.to_s.humanize}"
+    flash.alert = if @interaction.update(interaction_params)
+                    "Awesome your going to: #{
+                      @interaction.user_action.to_s.humanize
+                    }"
                   else
                     'Something went wrong'
                   end

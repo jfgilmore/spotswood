@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-lg justify-content-start">
     <% if @listing.images.attached? %>
-        <% num = @listing.images.count - 1 %>
+        <% num = @listing.images.length - 1 %>
         <% if num > 0 %>
             <section class="carousel" aria-label="Gallery">
                 <ol class="carousel__viewport">
@@ -36,7 +36,7 @@
             <%= image_tag @listing.display_size(0), class: 'img-fluid' %>
         <% end %>
 <% else %>
-    <%= image_tag user_avatar(User.find(@listing.user_id), 1200), class: 'img-fluid'  %>
+    <%= image_tag user_avatar(@listing.user, 1200), class: 'img-fluid'  %>
 <% end %>
     </div>
 
@@ -51,8 +51,8 @@
                 <h3>Cost</h3><p><%= @listing.cost %></p>
             </span>
             <span class="col-lg m-2">
-            <% if user_interaction? @listing %>
-                <%= render 'interactions/edit', interaction: (user_interaction @listing) %>
+            <% if user_interaction(@listing) %>
+                <%= render 'interactions/edit', interaction: user_interaction(@listing) %>
             <% else %>
                 <%= render 'interactions/new', interaction: Interaction.new %>
             <% end %>
@@ -68,7 +68,7 @@
     <div class="col-lg d-flex justify-content-sm-center justify-content-md-end ">
         <button class='btn btn-outline-dark center btn-lg'>
             <span class="hidden-xs hidden-sm">Hosted by <%= @listing.user.name %></span>
-            <%= image_tag user_avatar(User.find(@listing.user_id), 60), class: 'img-fluid rounded-circle'  %>
+            <%= image_tag user_avatar(@listing.user , 60), class: 'img-fluid rounded-circle'  %>
         </button>
     </div>
     <div class="col-lg">
