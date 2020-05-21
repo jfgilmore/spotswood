@@ -8,18 +8,19 @@ class ListingsController < ApplicationController
   # be visible to their owners.
   def index
     @user = current_user
-    @listings = if params[:search]
-      # Returns listings search on name and summary, defined in Model.
-      Listing.with_attached_images.eager_load(interactions: :listing).search(params).order(:at_time).where('listings.at_time > ?', Time.zone.now)
-    elsif params[:category]
-      Listing.filter_by_category(params[:category]).order(:at_time).where('at_time > ?', Time.zone.now)
-    else
-      # Load all listings with a future date sorted by soonest to latest.
-      # Load their images along with them for display.
-      @listings = Listing.eager_load(:interactions).with_attached_images.order(:at_time).where('at_time > ?', Time.zone.now)
-      # Highlighting of interacted with functions is causing more queries from the view
-      # I will consider revising this function.
-    end
+    @listings =
+      if params[:search]
+        # Returns listings search on name & summary, defined in Model.
+        Listing.with_attached_images.eager_load(interactions: :listing).search(params).order(:at_time).where('listings.at_time > ?', Time.zone.now)
+      elsif params[:category]
+        Listing.filter_by_category(params[:category]).order(:at_time).where('at_time > ?', Time.zone.now)
+      else
+        # Load all listings with a future date sort by ascending date
+        # Load their images along with them for display.
+        @listings = Listing.eager_load(:interactions).with_attached_images.order(:at_time).where('at_time > ?', Time.zone.now)
+        # Highlighting of interacted with functions is causing more queries from
+        # the view. I will consider revising this function.
+      end
   end
 
   # Article.where("published_at >= ?", Time.current)
@@ -67,9 +68,13 @@ class ListingsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  # Search Listings in db, returns first match on id(unique). Returns user, category, and interactions.
+  # Search Listings in db, returns first match on id(unique). Returns user,
+  # category, and interactions.
   def set_listing
-    @listing = Listing.with_attached_images.eager_load(:user, :category, interactions: :listing).find(params[:id])
+    @listing = Listing.with_attached_images.eager_load(
+      :user, :category,
+      interactions: :listing
+    ).find(params[:id])
   end
 
   # Only allow the white list of parameters through.

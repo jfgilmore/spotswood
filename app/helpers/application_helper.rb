@@ -7,9 +7,7 @@ module ApplicationHelper
   end
 
   def user_avatar(reference, size = 28)
-    p reference
     if reference.avatar.attached?
-      p 1
       reference.avatar.variant(resize: "#{size}x#{size}!")
     else
       gravatar_image_url(reference, size)
@@ -21,6 +19,8 @@ module ApplicationHelper
     "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
   end
 
+  # Only application internal assets to be used with this method
+  # Returns svg in markup
   def show_svg(path)
     File.open("app/assets/images/#{path}", 'rb') do |file|
       raw(file.read)

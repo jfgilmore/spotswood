@@ -5,7 +5,7 @@ class Listing < ApplicationRecord
 
   belongs_to :user
   has_many_attached :images, dependent: :destroy
-  has_many :interactions
+  has_many :interactions, dependent: :destroy
   belongs_to :category
 
   validate :image_type
@@ -45,7 +45,7 @@ class Listing < ApplicationRecord
   end
 
   def self.search(params)
-    where('listings.name LIKE ? OR listings.summary LIKE ?', "%#{params[:search]}%",
-          "%#{params[:search]}%")
+    where('listings.name LIKE ? OR listings.summary LIKE ?',
+          "%#{params[:search]}%", "%#{params[:search]}%")
   end
 end

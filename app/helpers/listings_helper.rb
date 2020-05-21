@@ -4,7 +4,11 @@ module ListingsHelper
   # Handling queries on already preloaded records without running a db query
   # Returns either the Interaction record when the listing matches the user
   def user_interaction(listing)
-    listing.interactions.each { |i| (return i) if i.user_id == current_user.id }
+    (return false) if current_user.nil?
+
+    listing.interactions.each do |i|
+      i.user_id == current_user.id ? (return i) : false
+    end
     false
   end
 
