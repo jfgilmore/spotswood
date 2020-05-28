@@ -12,6 +12,13 @@ class InteractionsController < ApplicationController
 
   # POST /interaction
   def create
+    if current_user == nil
+      flash.alert = "Awesome you want to: #{
+        @interaction.user_action.to_s.humanize
+      }; you need to log in first"
+      return redirect_to new_user_session_path
+    end
+
     @interaction = current_user.interactions.new(interaction_params)
 
     flash.alert = if @interaction.save
