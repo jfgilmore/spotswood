@@ -94,3 +94,6 @@ production:
 
   # Cache manifest.json for performance
   cache_manifest: true
+
+  # Silence the heroku deploy "WARNING: Entrypoint size exeeds the recommened limit (250kB)"
+  performance: { hints: false }
