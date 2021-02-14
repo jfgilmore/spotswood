@@ -2,11 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Listing, type: :model do
   let(:user) { User.new }
+  let(:category) { Category.new }
   subject do
     described_class.new(
       name: "Tiny Tim's fundraiser", summary: 'Tims needs help, he has a rare
       genetic disease that makes it so he can not use appostrophes',
-      at_time: (Time.now + 24 * 60 * 60), location: 'My house', user: user
+      at_time: (Time.now + 24 * 60 * 60), location: 'My house', user: user,
+      category: category
     )
   end
 
@@ -49,7 +51,7 @@ RSpec.describe Listing, type: :model do
   end
 
   it 'is not valid with no image' do
-    subject.image = nil
+    subject.images = nil
     expect(subject).to_not be_valid
   end
 end

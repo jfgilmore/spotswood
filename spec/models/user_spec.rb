@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { User.new }
-  subject { described_class.new(name: 'Tiny Tim', email: 'tim@test.com', password: '111111', role: :User) }
+  subject { described_class.new(name: 'Tiny Tim', email: 'tim@test.com', password: '111111', role: :user) }
 
   # Validations
   context 'validations' do
@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
 
     context 'with a duplicate email' do
       it 'is not valid' do
-        otheruser = described_class.create(name: 'Tiny Tim', email: 'tim@test.com', password: '111111', role: :User)
+        otheruser = described_class.create(name: 'Tiny Tim', email: 'tim@test.com', password: '111111', role: :user)
         expect(subject).to_not be_valid
       end
     end
@@ -65,9 +65,9 @@ RSpec.describe User, type: :model do
     end
 
     context 'when updating a user', method: :update do
-      it 'is not valid when user role is not present' do
+      it 'is corrected to be valid type :user when user role is not present' do
         subject.role = nil
-        expect(subject).to_not be_valid
+        expect(subject).to be_valid
       end
     end
   end

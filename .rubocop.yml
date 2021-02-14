@@ -12,19 +12,19 @@ require: rubocop-rails
 
 AllCops:
   Exclude:
-    - 'app/jobs/**/*'
-    - 'bin/**/*'
-    - 'config/**/*'
-    - 'coverage/**/*'
-    - 'db/**/*'
-    - 'lib/**/*'
-    - 'log/**/*'
-    - 'node_modules/**/*'
-    - 'public/**/*'
-    - 'spec/**/*'
-    - 'tmp/**/*'
-    - 'vendor/**/*'
-    - './*'
+    - "app/jobs/**/*"
+    - "bin/**/*"
+    - "config/**/*"
+    - "coverage/**/*"
+    - "db/**/*"
+    - "lib/**/*"
+    - "log/**/*"
+    - "node_modules/**/*"
+    - "public/**/*"
+    - "spec/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "./*"
 
 Style/FrozenStringLiteralComment:
   Enabled: false

@@ -44,10 +44,10 @@ Rails.application.configure do
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
-  config.log_level = :info
+  config.log_level = :warn
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -86,6 +86,10 @@ Rails.application.configure do
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    logger.datetime_format = "%d-%m-%Y %H:%M:%S"
+    logger.formatter = proc do |severity, time, progname, msg|
+      "#{time}, #{severity}: #{msg} from #{progname} \n"
+    end
   end
 
   # Do not dump schema after migrations.

@@ -12,4 +12,16 @@ module InteractionsHelper
       return 'btn btn-success btn-sm'
     end
   end
+
+  def interaction_user_alert(action)
+    "Awesome you want to: #{action.to_s.humanize}; you need to log in first"
+  end
+
+  def interaction_saved_alert(saved, action)
+    if saved
+      "Awesome your going to: #{action.to_s.humanize}"
+    else
+      'Something went wrong'
+    end
+  end
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-# All validations implemented as client side validations
+
 class Listing < ApplicationRecord
+  # All validations implemented as client side validations
   scope :filter_by_category, ->(category) { where category_id: category }
 
   belongs_to :user
@@ -11,6 +12,7 @@ class Listing < ApplicationRecord
   validate :image_type
   validate :cannot_be_in_the_past
   validates :at_time, presence: true
+  validates :images, presence: true
   validates :name, length: { in: 2...40 }
   validates :summary, length: { in: 22...120 }
   validates :location, length: { in: 6...200 }
@@ -19,9 +21,7 @@ class Listing < ApplicationRecord
 
   # Validation helpers
   def cannot_be_in_the_past
-    unless Time.zone.now.to_i < at_time.to_i
-      errors.add(:at_time, 'New events can only happen in the future')
-    end
+    errors.add(:at_time, 'New events can only happen in the future') unless Time.zone.now.to_i < at_time.to_i
   end
 
   def image_type

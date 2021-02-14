@@ -12,22 +12,12 @@ class InteractionsController < ApplicationController
 
   # POST /interaction
   def create
-    if current_user == nil
-      flash.alert = "Awesome you want to: #{
-        @interaction.user_action.to_s.humanize
-      }; you need to log in first"
+    if current_user.nil?
+      flash.alert = interaction_user_alert(@interaction.user_action)
       return redirect_to new_user_session_path
     end
-
     @interaction = current_user.interactions.new(interaction_params)
-
-    flash.alert = if @interaction.save
-                    "Awesome your going to: #{
-                      @interaction.user_action.to_s.humanize
-                    }"
-                  else
-                    'Something went wrong'
-                  end
+    flash.alert = interaction_saved_alert(@interaction.saved, @interaction.user_action)
     redirect_to listing_url @interaction.listing_id
   end
 
@@ -40,13 +30,7 @@ class InteractionsController < ApplicationController
     @interaction.assign_attributes(interaction_params)
     return unless @interaction.changed?
 
-    flash.alert = if @interaction.update(interaction_params)
-                    "Awesome your going to: #{
-                      @interaction.user_action.to_s.humanize
-                    }"
-                  else
-                    'Something went wrong'
-                  end
+    flash.alert = interaction_saved_alert(@interaction.update(interaction_params), @interaction.user_action)
     redirect_to listing_url @interaction.listing_id
   end
 

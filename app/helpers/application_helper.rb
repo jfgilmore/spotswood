@@ -22,8 +22,15 @@ module ApplicationHelper
   # Only application internal assets to be used with this method
   # Returns svg in markup
   def show_svg(path)
-    File.open("app/assets/images/#{path}", 'rb') do |file|
-      raw(file.read)
+    file_path = "app/assets/images/#{path}"
+    if File.exist?(file_path)
+      sanitize(File.read(file_path),
+               {
+                 tags: %w[svg path g], attributes: %w[xmlns enable-background fill viewbox height width d g]
+               })
+    else
+      logger.warn "SVG_MISSING: #{file_path} not located"
+      "#{path} not found"
     end
   end
 end
