@@ -27,7 +27,7 @@ gem "cancancan", "~> 3.1"
 # Use Active Storage variant
 gem "aws-sdk-s3", "~> 1.64"
 gem "mini_magick", "~> 4.10"
-gem "image_processing", "~> 1.10"
+gem "image_processing", "~> 1.12"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
